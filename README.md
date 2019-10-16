@@ -7,9 +7,7 @@
 </h3>
 
 <p align="center">
-  <a href="https://rocketseat.com.br">
-    <img alt="GoStack" src="https://img.shields.io/badge/GoStack-9.0-%2304D361">
-  </a>
+  <img alt="GoStack" src="https://img.shields.io/badge/GoStack-9.0-%2304D361">
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
 </p>
