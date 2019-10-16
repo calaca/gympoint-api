@@ -52,7 +52,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Node](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
+* [Node](https://nodejs.org/) - JavaScript runtime built on Chrome's V8 JavaScript engine
 * [React](https://reactjs.org/) - A JavaScript library for building user interfaces
 * [React Native](https://facebook.github.io/react-native/) - JavaScript framework for writing real, natively rendering mobile apps for iOS and Android
 
