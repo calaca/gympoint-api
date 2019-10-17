@@ -1,3 +1,4 @@
+import * as yup from 'yup';
 import User from '../models/User';
 
 class UserController {
@@ -8,6 +9,28 @@ class UserController {
   }
 
   async update(req, res) {
+    // validate request body data
+    const schema = yup.object().shape({
+      name: yup.string(),
+      email: yup.string().email(),
+      oldPassword: yup.string().min(6),
+      password: yup
+        .string()
+        .min(6)
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
+      confirmPassword: yup
+        .string()
+        .when('password', (password, field) =>
+          password ? field.required().oneOf([yup.ref('password')]) : field
+        ),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
     const { email, oldPassword } = req.body;
 
     const user = await User.findByPk(req.userId);
