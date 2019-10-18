@@ -5,7 +5,15 @@ class UserController {
   async index(req, res) {
     const users = await User.findAll();
 
-    return res.json(users);
+    const usersPublicData = users.map(user => {
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      };
+    });
+
+    return res.json(usersPublicData);
   }
 
   async update(req, res) {
