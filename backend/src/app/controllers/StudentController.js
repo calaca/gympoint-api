@@ -58,7 +58,7 @@ class StudentController {
       return res.status(400).json({ error: 'Validation failed' });
     }
 
-    const student = await Student.findByPk(req.body.id);
+    const student = await Student.findByPk(req.params.id);
 
     if (req.body.email !== student.email) {
       const studentExists = await Student.findOne({ where: req.body.email });
@@ -68,10 +68,7 @@ class StudentController {
       }
     }
 
-    // eslint-disable-next-line no-unused-vars
-    const { id, ...dataToUpdate } = req.body;
-
-    const updatedStudent = await student.update(dataToUpdate);
+    const updatedStudent = await student.update(req.body);
 
     return res.json(updatedStudent);
   }
