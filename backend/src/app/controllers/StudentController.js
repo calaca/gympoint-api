@@ -1,8 +1,9 @@
-// import Student from '../models/Student';
+import Student from '../models/Student';
 
 class StudentController {
   async store(req, res) {
-    return res.json({ message: 'testing route' });
+    const student = await Student.create(req.body);
+    return res.json(student);
   }
 }
 
