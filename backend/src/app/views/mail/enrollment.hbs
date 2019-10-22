@@ -1,0 +1,20 @@
+<main class="enrollment">
+  <h1>Olá, {{ student }}!</h1>
+  <p>Sua matrícula foi efetuada com sucesso!</p>
+  <p>Acompanhe os detalhes abaixo:</p>
+  <ul class="details">
+    <li>
+      <strong>Plano:</strong> <span>{{ plan }}</span>
+    </li>
+    <li>
+      <strong>Data de início:</strong> <span>{{ start_date }}</span>
+    </li>
+    <li>
+      <strong>Data de término:</strong> <span>{{ end_date }}</span>
+    </li>
+    <li>
+      <strong>Preço:</strong> <span>{{ price }}</span>
+    </li>
+  </ul>
+  {{> farewell }}
+</main>

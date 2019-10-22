@@ -1,7 +1,8 @@
-import { isBefore, parseISO, addMonths } from 'date-fns';
+import { isBefore, parseISO, addMonths, format } from 'date-fns';
 import Enrollment from '../models/Enrollment';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
+import Mail from '../../lib/Mail';
 
 class EnrollmentController {
   async index(req, res) {
@@ -59,6 +60,19 @@ class EnrollmentController {
       start_date,
       end_date,
       price,
+    });
+
+    await Mail.sendMail({
+      to: `${studentExists.name} <${studentExists.email}>`,
+      subject: 'Bem vindo ao Gympoint!',
+      template: 'enrollment',
+      context: {
+        student: studentExists.name,
+        plan: planExists.title,
+        start_date: format(parseISO(start_date), 'dd/MM/yyyy'),
+        end_date: format(end_date, 'dd/MM/yyyy'),
+        price,
+      },
     });
 
     return res.json(enrollment);
