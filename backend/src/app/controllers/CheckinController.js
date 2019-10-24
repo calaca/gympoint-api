@@ -31,9 +31,9 @@ class CheckinController {
       });
     }
 
-    // const checkin = await Checkin.create({ student_id: id });
+    const checkin = await Checkin.create({ student_id: id });
 
-    return res.json(checkins);
+    return res.json(checkin);
   }
 
   async index(req, res) {
