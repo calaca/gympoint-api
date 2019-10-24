@@ -1,0 +1,13 @@
+<main class="answer">
+  <h1>Olá, {{ student }}!</h1>
+  <p>Sua pergunta foi respondida.<br>Veja os detalhes abaixo:</p>
+  <ul class="details">
+    <li>
+      <strong>Pergunta:</strong> <span>{{ question }}</span>
+    </li>
+    <li>
+      <strong>Resposta:</strong> <span>{{ answer }}</span>
+    </li>
+  </ul>
+  {{> farewell }}
+</main>
