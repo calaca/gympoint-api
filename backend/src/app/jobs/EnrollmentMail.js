@@ -1,5 +1,6 @@
 import { parseISO, format } from 'date-fns';
 import Mail from '../../lib/Mail';
+import currencyFormatter from '../../helper/currencyFormatter';
 
 class EnrollmentMail {
   get key() {
@@ -18,7 +19,7 @@ class EnrollmentMail {
         plan: enrollment.plan.title,
         start_date: format(parseISO(enrollment.start_date), 'dd/MM/yyyy'),
         end_date: format(parseISO(enrollment.end_date), 'dd/MM/yyyy'),
-        price: enrollment.price,
+        price: `R$ ${currencyFormatter(enrollment.price)}`,
       },
     });
   }
