@@ -1,0 +1,16 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:11
+    container_name: 'postgres'
+    environment:
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - TZ=GMT
+    ports:
+      - 5432:5432
+  redis:
+    image: redis:alpine
+    container_name: 'redis'
+    ports:
+      - 6379:6379
