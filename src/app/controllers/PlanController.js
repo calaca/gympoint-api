@@ -1,4 +1,4 @@
-import * as yup from 'yup';
+import { validationResult } from 'express-validator';
 import Plan from '../models/Plan';
 
 class PlanController {
@@ -12,22 +12,10 @@ class PlanController {
   }
 
   async store(req, res) {
-    const schema = yup.object().shape({
-      title: yup.string().required(),
-      duration: yup
-        .number()
-        .integer()
-        .moreThan(0)
-        .required(),
-      price: yup
-        .number()
-        .integer()
-        .moreThan(0)
-        .required(),
-    });
+    const errors = validationResult(req);
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const { id, title, duration, price } = await Plan.create(req.body);
@@ -36,26 +24,16 @@ class PlanController {
   }
 
   async update(req, res) {
-    const schema = yup.object().shape({
-      title: yup.string(),
-      duration: yup
-        .number()
-        .integer()
-        .moreThan(0),
-      price: yup
-        .number()
-        .integer()
-        .moreThan(0),
-    });
+    const errors = validationResult(req);
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const plan = await Plan.findByPk(req.params.id);
 
     if (!plan) {
-      return res.status(404).json({ error: 'Plan not found' });
+      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
     }
 
     const { id, title, duration, price } = await plan.update(req.body);
@@ -67,7 +45,7 @@ class PlanController {
     const plan = await Plan.findByPk(req.params.id);
 
     if (!plan) {
-      return res.status(404).json({ error: 'Plan not found' });
+      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
     }
 
     await plan.destroy();

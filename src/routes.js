@@ -55,15 +55,100 @@ routes.put(
   UserController.update
 );
 
-routes.post('/students', StudentController.store);
-routes.put('/students/:id', StudentController.update);
+routes.post(
+  '/students',
+  [
+    check('name')
+      .exists()
+      .withMessage('Name is required')
+      .isString()
+      .withMessage('Name should be a string'),
+    check('email', 'Please include a valid email').isEmail(),
+    check('age')
+      .isInt({ gt: 0 })
+      .withMessage('Age should be a positive integer number')
+      .exists()
+      .withMessage('Age is required'),
+    check('weight')
+      .isInt({ gt: 0 })
+      .withMessage('Weight should be a positive integer number')
+      .exists()
+      .withMessage('Weight is required'),
+    check('height')
+      .isInt({ gt: 0 })
+      .withMessage('Height should be a positive integer number')
+      .exists()
+      .withMessage('Height is required'),
+  ],
+  StudentController.store
+);
+routes.put(
+  '/students/:id',
+  [
+    check('name', 'Name should be a string')
+      .isString()
+      .optional(),
+    check('email', 'Please include a valid email')
+      .isEmail()
+      .optional(),
+    check('age')
+      .isInt({ gt: 0 })
+      .withMessage('Age should be a positive integer number')
+      .optional(),
+    check('weight')
+      .isInt({ gt: 0 })
+      .withMessage('Weight should be a positive integer number')
+      .optional(),
+    check('height')
+      .isInt({ gt: 0 })
+      .withMessage('Height should be a positive integer number')
+      .optional(),
+  ],
+  StudentController.update
+);
 
 routes.get('/help-orders/unanswered', AnswerController.index);
 routes.post('/help-orders/:id/answer', AnswerController.store);
 
 routes.get('/plans', PlanController.index);
-routes.post('/plans', PlanController.store);
-routes.put('/plans/:id', PlanController.update);
+routes.post(
+  '/plans',
+  [
+    check('title')
+      .isString()
+      .withMessage('Title should be a string')
+      .exists('Title is required'),
+    check('duration')
+      .isInt({ min: 1 })
+      .withMessage('Duration should be greater than 1')
+      .exists()
+      .withMessage('Duration is required'),
+    check('price')
+      .isInt({ min: 0 })
+      .withMessage('Price should be greater than 0')
+      .exists()
+      .withMessage('Price is required'),
+  ],
+  PlanController.store
+);
+routes.put(
+  '/plans/:id',
+  [
+    check('title')
+      .isString()
+      .withMessage('Title should be a string')
+      .optional(),
+    check('duration')
+      .isInt({ min: 1 })
+      .withMessage('Duration should be greater than 1')
+      .optional(),
+    check('price')
+      .isInt({ min: 0 })
+      .withMessage('Price should be greater than 0')
+      .optional(),
+  ],
+  PlanController.update
+);
 routes.delete('/plans/:id', PlanController.delete);
 
 routes.get('/enrollments', EnrollmentController.index);

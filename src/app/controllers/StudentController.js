@@ -1,33 +1,12 @@
-import * as yup from 'yup';
+import { validationResult } from 'express-validator';
 import Student from '../models/Student';
 
 class StudentController {
   async store(req, res) {
-    const schema = yup.object().shape({
-      name: yup.string().required(),
-      email: yup
-        .string()
-        .email()
-        .required(),
-      age: yup
-        .number()
-        .integer()
-        .positive()
-        .required(),
-      weight: yup
-        .number()
-        .integer()
-        .positive()
-        .required(),
-      height: yup
-        .number()
-        .integer()
-        .positive()
-        .required(),
-    });
+    const errors = validationResult(req);
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const studentExists = await Student.findOne({
@@ -35,7 +14,9 @@ class StudentController {
     });
 
     if (studentExists) {
-      return res.status(400).json({ error: 'Student already exists' });
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Student already exists' }] });
     }
 
     const student = await Student.create(req.body);
@@ -43,36 +24,23 @@ class StudentController {
   }
 
   async update(req, res) {
-    const schema = yup.object().shape({
-      name: yup.string(),
-      email: yup.string().email(),
-      age: yup
-        .number()
-        .integer()
-        .positive(),
-      weight: yup
-        .number()
-        .integer()
-        .positive(),
-      height: yup
-        .number()
-        .integer()
-        .positive(),
-    });
+    const errors = validationResult(req);
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const student = await Student.findByPk(req.params.id);
 
-    if (req.body.email !== student.email) {
+    if (req.body.email && req.body.email !== student.email) {
       const studentExists = await Student.findOne({
         where: { email: req.body.email },
       });
 
       if (studentExists) {
-        return res.status(400).json({ error: 'Student already exists' });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Student already exists' }] });
       }
     }
 
