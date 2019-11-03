@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { check } from 'express-validator';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import StudentController from './app/controllers/StudentController';
@@ -13,7 +14,16 @@ const routes = new Router();
 
 // public
 routes.get('/users', UserController.index);
-routes.post('/sessions', SessionController.store);
+routes.post(
+  '/sessions',
+  [
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Password is required')
+      .isString()
+      .exists(),
+  ],
+  SessionController.store
+);
 
 routes.get('/students/:id/checkins', CheckinController.index);
 routes.post('/students/:id/checkins', CheckinController.store);
