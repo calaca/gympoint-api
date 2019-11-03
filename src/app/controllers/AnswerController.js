@@ -32,13 +32,15 @@ class AnswerController {
     });
 
     if (!helpOrder) {
-      return res.status(404).json({ error: 'Help order not found' });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Help order not found' }] });
     }
 
     if (helpOrder.answer_at !== null) {
       return res
         .status(400)
-        .json({ error: 'This question already has an answer' });
+        .json({ errors: [{ msg: 'This question has already been answered' }] });
     }
 
     const updatedHelpOrder = await helpOrder.update({
