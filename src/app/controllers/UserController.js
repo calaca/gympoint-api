@@ -1,4 +1,4 @@
-import * as yup from 'yup';
+import { validationResult } from 'express-validator';
 import User from '../models/User';
 
 class UserController {
@@ -17,26 +17,10 @@ class UserController {
   }
 
   async update(req, res) {
-    // validate request body data
-    const schema = yup.object().shape({
-      name: yup.string(),
-      email: yup.string().email(),
-      oldPassword: yup.string().min(6),
-      password: yup
-        .string()
-        .min(6)
-        .when('oldPassword', (oldPassword, field) =>
-          oldPassword ? field.required() : field
-        ),
-      confirmPassword: yup
-        .string()
-        .when('password', (password, field) =>
-          password ? field.required().oneOf([yup.ref('password')]) : field
-        ),
-    });
+    const errors = validationResult(req);
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation failed' });
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
     const { email, oldPassword } = req.body;
@@ -48,13 +32,17 @@ class UserController {
       const userExists = await User.findOne({ where: { email } });
 
       if (userExists) {
-        return res.status(400).json({ error: 'User already exists ' });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'User already exists' }] });
       }
     }
 
     // is old password provided and does it really match?
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Password does now match' });
+      return res
+        .status(401)
+        .json({ errors: [{ msg: 'Password does not match' }] });
     }
 
     // if all goes well, update user data
