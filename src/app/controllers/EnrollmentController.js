@@ -41,15 +41,17 @@ class EnrollmentController {
     const startDateParsed = parseISO(start_date);
 
     if (!studentExists) {
-      return res.status(400).json({ error: 'Student does not exist' });
+      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
     }
 
     if (!planExists) {
-      return res.status(400).json({ error: 'Plan does not exist' });
+      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
     }
 
     if (isBefore(startDateParsed, new Date())) {
-      return res.status(400).json({ error: 'Past dates are not permitted' });
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Past dates are not permitted' }] });
     }
 
     const end_date = addMonths(startDateParsed, planExists.duration);
@@ -88,15 +90,17 @@ class EnrollmentController {
     const startDateParsed = parseISO(start_date);
 
     if (!studentExists) {
-      return res.status(400).json({ error: 'Student does not exist' });
+      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
     }
 
     if (!planExists) {
-      return res.status(400).json({ error: 'Plan does not exist' });
+      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
     }
 
     if (isBefore(startDateParsed, new Date())) {
-      return res.status(400).json({ error: 'Past dates are not permitted' });
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'Past dates are not permitted' }] });
     }
 
     const end_date = addMonths(startDateParsed, planExists.duration);
@@ -105,7 +109,9 @@ class EnrollmentController {
     const enrollment = await Enrollment.findByPk(req.params.id);
 
     if (!enrollment) {
-      return res.status(404).json({ error: 'Enrollment not found' });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Enrollment not found' }] });
     }
 
     const updatedEnrollment = await enrollment.update({
@@ -123,7 +129,9 @@ class EnrollmentController {
     const enrollment = await Enrollment.findByPk(req.params.id);
 
     if (!enrollment) {
-      return res.status(404).json({ error: 'Enrollment not found' });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Enrollment not found' }] });
     }
 
     await enrollment.destroy();
