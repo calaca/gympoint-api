@@ -8,7 +8,7 @@ class HelpOrderController {
     const student = await Student.findByPk(id);
 
     if (!student) {
-      return res.status(404).json({ error: 'Student not found' });
+      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
     }
 
     const helpOrders = await HelpOrder.findAll();
@@ -23,7 +23,7 @@ class HelpOrderController {
     const student = await Student.findByPk(id);
 
     if (!student) {
-      return res.status(404).json({ error: 'Student not found' });
+      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
     }
 
     const helpOrder = await HelpOrder.create({
