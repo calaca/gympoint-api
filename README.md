@@ -87,3 +87,7 @@ Add additional notes about how to deploy this on a live system (soon)
 * [Docker](https://www.docker.com/) - tool designed to make it easier to create, deploy, and run applications by using containers
 * [Docker Compose](https://docs.docker.com/compose/) - tool for defining and running multi-container Docker applications
 * [Bee-Queue](https://bee-queue.com/) - Redis-backed job queue for Node.js
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
