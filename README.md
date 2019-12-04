@@ -39,10 +39,10 @@ To run this app's database you'll need to install [Docker](https://www.docker.co
 #### Creating the database
 
 - Run `docker exec -it postgres_gympoint_api psql -U your_postgres_user_name` to acess your postgress CLI
-- Inside Postgres, run `CREATE DATABASE gympoint;` to crate your database
+- Inside Postgres, run `CREATE DATABASE gympoint;` to create your database
 - Exit with `\q`
-- At this API root folder, run all migrations with `yarn sequelize db:migrate`
-- At the same folder as above, load all seeds with `yarn sequelize db:seed:all`
+- At root folder, run all migrations with `yarn sequelize db:migrate`
+- At root folder, load all seeds with `yarn sequelize db:seed:all`
 
 ### Environmental Variables
 
