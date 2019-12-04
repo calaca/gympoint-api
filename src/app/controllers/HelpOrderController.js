@@ -11,7 +11,7 @@ class HelpOrderController {
       return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
     }
 
-    const helpOrders = await HelpOrder.findAll();
+    const helpOrders = await HelpOrder.findAll({ where: { student_id: id }});
 
     return res.json(helpOrders);
   }
