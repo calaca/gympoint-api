@@ -1,16 +1,16 @@
 version: '3'
 services:
-  postgres:
+  postgres_gympoint_api:
     image: postgres:11
-    container_name: 'postgres'
+    postgres_gympoint_api: 'postgres_gympoint_api'
     environment:
       - POSTGRES_USER=
       - POSTGRES_PASSWORD=
       - TZ=GMT
     ports:
       - 5432:5432
-  redis:
+  redis_gympoint_api:
     image: redis:alpine
-    container_name: 'redis'
+    redis_gympoint_api: 'redis_gympoint_api'
     ports:
       - 6379:6379

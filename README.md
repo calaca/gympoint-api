@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Gympoint" title="Gympoint" src=".github/logo.png" width="200px" />
+  <img alt="Gympoint" title="Gympoint" src="../.github/logo.png" width="200px" />
 </h1>
 
 <h3 align="center">
@@ -30,6 +30,24 @@ or
 yarn install
 ```
 
+### Docker
+
+To run this app's database you'll need to install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/). Then you should run `docker-compose up` to install all images and start up the services.
+
+**PS:** don't forget to fill out the `docker-compose.example.yml` and rename it to `docker-compose.yml`
+
+#### Creating the database
+
+- Run `docker exec -it postgres_gympoint_api psql -U your_postgres_user_name` to acess your postgress CLI
+- Inside Postgres, run `CREATE DATABASE gympoint;` to crate your database
+- Exit with `\q`
+- At this API root folder, run all migrations with `yarn sequelize db:migrate`
+- At the same folder as above, load all seeds with `yarn sequelize db:seed:all`
+
+### Environmental Variables
+
+You are provided with a `.env` example file called `.env.example`, where all sensitive data and some setup data should be stored at. Please fill out the missing data and rename the example file to `.env`.
+
 ### Running
 
 Scripts used to run the app:
@@ -39,7 +57,7 @@ Scripts used to run the app:
 - `yarn queue`: queue thread that processes jobs
 - `yarn queue:debug`: queue thread on debug mode
 
-**PS:** you should always keep both `yarn dev` and `yarn queue` if you want the API and queue jobs to run.
+**PS:** you should always keep both `yarn dev` and `yarn queue` running if you want the API and queue jobs to run.
 
 ## Debugging
 
@@ -52,11 +70,11 @@ Scripts used to run the app:
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Explain how to run the automated tests for this system (soon)
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Add additional notes about how to deploy this on a live system (soon)
 
 ## Built With
 
@@ -69,7 +87,3 @@ Add additional notes about how to deploy this on a live system
 * [Docker](https://www.docker.com/) - tool designed to make it easier to create, deploy, and run applications by using containers
 * [Docker Compose](https://docs.docker.com/compose/) - tool for defining and running multi-container Docker applications
 * [Bee-Queue](https://bee-queue.com/) - Redis-backed job queue for Node.js
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
