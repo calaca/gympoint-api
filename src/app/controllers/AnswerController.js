@@ -8,9 +8,7 @@ class AnswerController {
   async index(req, res) {
     const helpOrders = await HelpOrder.findAll({
       where: {
-        answer_at: {
-          [Op.ne]: null,
-        },
+        answer_at: null,
       },
     });
 
