@@ -55,6 +55,7 @@ routes.put(
   UserController.update
 );
 
+routes.get('/students', StudentController.index);
 routes.post(
   '/students',
   [

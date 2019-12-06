@@ -2,6 +2,23 @@ import { validationResult } from 'express-validator';
 import Student from '../models/Student';
 
 class StudentController {
+  async index(req, res) {
+    const students = await Student.findAll();
+
+    const studentsPublicData = students.map(student => {
+      return {
+        id: student.id,
+        name: student.name,
+        email: student.email,
+        age: student.age,
+        weight: student.weight,
+        height: student.height,
+      };
+    });
+
+    return res.json(studentsPublicData);
+  }
+
   async store(req, res) {
     const errors = validationResult(req);
 
