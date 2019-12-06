@@ -107,6 +107,7 @@ routes.put(
   ],
   StudentController.update
 );
+routes.delete('/students/:id', StudentController.delete);
 
 routes.get('/help-orders/unanswered', AnswerController.index);
 routes.post('/help-orders/:id/answer', AnswerController.store);
