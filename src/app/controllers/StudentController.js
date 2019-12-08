@@ -75,7 +75,9 @@ class StudentController {
 
     await student.destroy();
 
-    return res.json({ message: 'Student deleted successfully' });
+    const students = await Student.findAll();
+
+    return res.json(students);
   }
 }
 
