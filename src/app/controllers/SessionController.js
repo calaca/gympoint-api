@@ -18,14 +18,16 @@ class SessionController {
 
     // validate user
     if (!user) {
-      return res.status(401).json({ errors: [{ msg: 'User not found' }] });
+      return res
+        .status(401)
+        .json({ errors: [{ msg: 'Usuário não encontrado.' }] });
     }
 
     // validate password
     if (!(await user.checkPassword(password))) {
       return res
         .status(401)
-        .json({ errors: [{ msg: 'Password does no match' }] });
+        .json({ errors: [{ msg: 'As senhas não são iguais.' }] });
     }
 
     const { id, name } = user;

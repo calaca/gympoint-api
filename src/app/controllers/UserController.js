@@ -32,9 +32,9 @@ class UserController {
       const userExists = await User.findOne({ where: { email } });
 
       if (userExists) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'User already exists' }] });
+        return res.status(400).json({
+          errors: [{ msg: 'Um usuário já possui esse email cadastrado.' }],
+        });
       }
     }
 
@@ -42,7 +42,7 @@ class UserController {
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
       return res
         .status(401)
-        .json({ errors: [{ msg: 'Password does not match' }] });
+        .json({ errors: [{ msg: 'As senhas não são iguais.' }] });
     }
 
     // if all goes well, update user data

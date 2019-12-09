@@ -42,17 +42,21 @@ class EnrollmentController {
     const startDateParsed = parseISO(start_date);
 
     if (!studentExists) {
-      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Aluno não encontrado.' }] });
     }
 
     if (!planExists) {
-      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Plano não encontrado.' }] });
     }
 
     if (isBefore(startDateParsed, new Date())) {
       return res
         .status(400)
-        .json({ errors: [{ msg: 'Past dates are not permitted' }] });
+        .json({ errors: [{ msg: 'Datas passadas não são permitidas.' }] });
     }
 
     const end_date = addMonths(startDateParsed, planExists.duration);
@@ -91,17 +95,21 @@ class EnrollmentController {
     const startDateParsed = parseISO(start_date);
 
     if (!studentExists) {
-      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Aluno não encontrado.' }] });
     }
 
     if (!planExists) {
-      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Plano não encontrado.' }] });
     }
 
     if (isBefore(startDateParsed, new Date())) {
       return res
         .status(400)
-        .json({ errors: [{ msg: 'Past dates are not permitted' }] });
+        .json({ errors: [{ msg: 'Datas passadas não são permitidas.' }] });
     }
 
     const end_date = addMonths(startDateParsed, planExists.duration);
@@ -112,7 +120,7 @@ class EnrollmentController {
     if (!enrollment) {
       return res
         .status(404)
-        .json({ errors: [{ msg: 'Enrollment not found' }] });
+        .json({ errors: [{ msg: 'Matrícula não encontrada.' }] });
     }
 
     const updatedEnrollment = await enrollment.update({
@@ -132,12 +140,14 @@ class EnrollmentController {
     if (!enrollment) {
       return res
         .status(404)
-        .json({ errors: [{ msg: 'Enrollment not found' }] });
+        .json({ errors: [{ msg: 'Matrícula não encontrada.' }] });
     }
 
     await enrollment.destroy();
 
-    return res.json({ message: 'Enrollment deleted successfully' });
+    const enrollments = await Enrollment.findAll();
+
+    return res.json(enrollments);
   }
 }
 

@@ -17,8 +17,8 @@ routes.get('/users', UserController.index);
 routes.post(
   '/sessions',
   [
-    check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Password is required')
+    check('email', 'Por favor, informa um email válido.').isEmail(),
+    check('password', 'Senha é obrigatória.')
       .isString()
       .exists(),
   ],
@@ -37,17 +37,17 @@ routes.use(authMiddleware);
 routes.put(
   '/users',
   [
-    check('name', 'Name should be a string').isString(),
-    check('email', 'Please include a valid email').isEmail(),
+    check('name', 'Nome deve ser do tipo texto.').isString(),
+    check('email', 'Por favor, informa um email válido.').isEmail(),
     check(
       'oldPassword',
-      'Old password should have 6 or more characters'
+      'Senha antiga deve ter pelo menos 6 caracteres.'
     ).isLength({ min: 6 }),
-    check('password', 'Password is required')
+    check('password', 'Senha é obrigatória.')
       .if((value, { req }) => req.body.oldPassword)
       .not()
       .isEmpty(),
-    check('confirmPassword', 'Password confirmation is required')
+    check('confirmPassword', 'Confirmação de senha é obrigatória.')
       .if((value, { req }) => req.body.password)
       .not()
       .isEmpty(),
@@ -61,48 +61,48 @@ routes.post(
   [
     check('name')
       .exists()
-      .withMessage('Name is required')
+      .withMessage('Name é obrigatório.')
       .isString()
-      .withMessage('Name should be a string'),
-    check('email', 'Please include a valid email').isEmail(),
+      .withMessage('Nome deve ser do tipo texto.'),
+    check('email', 'Por favor, informa um email válido.').isEmail(),
     check('age')
       .isInt({ gt: 0 })
-      .withMessage('Age should be a positive integer number')
+      .withMessage('Idade deve ser um número inteiro positivo.')
       .exists()
-      .withMessage('Age is required'),
+      .withMessage('Idade é obrigatória.'),
     check('weight')
       .isInt({ gt: 0 })
-      .withMessage('Weight should be a positive integer number')
+      .withMessage('Peso deve ser um número inteiro positivo.')
       .exists()
-      .withMessage('Weight is required'),
+      .withMessage('Peso é obrigatório.'),
     check('height')
       .isInt({ gt: 0 })
-      .withMessage('Height should be a positive integer number')
+      .withMessage('Altura deve ser um número inteiro positivo.')
       .exists()
-      .withMessage('Height is required'),
+      .withMessage('Altura é obrigatória.'),
   ],
   StudentController.store
 );
 routes.put(
   '/students/:id',
   [
-    check('name', 'Name should be a string')
+    check('name', 'Nome deve ser do tipo texto.')
       .isString()
       .optional(),
-    check('email', 'Please include a valid email')
+    check('email', 'Por favor, informa um email válido.')
       .isEmail()
       .optional(),
     check('age')
       .isInt({ gt: 0 })
-      .withMessage('Age should be a positive integer number')
+      .withMessage('Idade deve ser um número inteiro positivo.')
       .optional(),
     check('weight')
       .isInt({ gt: 0 })
-      .withMessage('Weight should be a positive integer number')
+      .withMessage('Peso deve ser um número inteiro positivo.')
       .optional(),
     check('height')
       .isInt({ gt: 0 })
-      .withMessage('Height should be a positive integer number')
+      .withMessage('Altura deve ser um número inteiro positivo.')
       .optional(),
   ],
   StudentController.update
@@ -118,18 +118,18 @@ routes.post(
   [
     check('title')
       .isString()
-      .withMessage('Title should be a string')
-      .exists('Title is required'),
+      .withMessage('Título deve ser do tipo texto.')
+      .exists('Título é obrigatório.'),
     check('duration')
       .isInt({ min: 1 })
-      .withMessage('Duration should be greater than 1')
+      .withMessage('Duração deve ser maior que 1 mês.')
       .exists()
-      .withMessage('Duration is required'),
+      .withMessage('Duração é obrigatória.'),
     check('price')
       .isInt({ min: 0 })
-      .withMessage('Price should be greater than 0')
+      .withMessage('Preço deve ser maior que R$0,00.')
       .exists()
-      .withMessage('Price is required'),
+      .withMessage('Preço é obrigatório.'),
   ],
   PlanController.store
 );
@@ -138,15 +138,15 @@ routes.put(
   [
     check('title')
       .isString()
-      .withMessage('Title should be a string')
+      .withMessage('Título deve ser do tipo texto.')
       .optional(),
     check('duration')
       .isInt({ min: 1 })
-      .withMessage('Duration should be greater than 1')
+      .withMessage('Duração deve ser maior que 1 mês.')
       .optional(),
     check('price')
       .isInt({ min: 0 })
-      .withMessage('Price should be greater than 0')
+      .withMessage('Preço deve ser maior que R$0,00.')
       .optional(),
   ],
   PlanController.update

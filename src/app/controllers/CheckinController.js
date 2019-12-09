@@ -10,7 +10,9 @@ class CheckinController {
     const student = await Student.findByPk(id);
 
     if (!student) {
-      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Aluno não encontrado.' }] });
     }
 
     const startDay = new Date();
@@ -27,7 +29,7 @@ class CheckinController {
 
     if (checkins.length >= 5) {
       return res.status(404).json({
-        errors: [{ msg: 'Student have already checked in during last 7 days' }],
+        errors: [{ msg: 'Este aluno já fez checkin nos últimos 7 dias.' }],
       });
     }
 
@@ -42,7 +44,9 @@ class CheckinController {
     const student = await Student.findByPk(id);
 
     if (!student) {
-      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Aluno não encontrado.' }] });
     }
 
     const checkins = await Checkin.findAll({

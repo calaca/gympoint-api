@@ -33,7 +33,9 @@ class PlanController {
     const plan = await Plan.findByPk(req.params.id);
 
     if (!plan) {
-      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Plano não encontrado.' }] });
     }
 
     const { id, title, duration, price } = await plan.update(req.body);
@@ -45,7 +47,9 @@ class PlanController {
     const plan = await Plan.findByPk(req.params.id);
 
     if (!plan) {
-      return res.status(404).json({ errors: [{ msg: 'Plan not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Plano não encontrado.' }] });
     }
 
     await plan.destroy();

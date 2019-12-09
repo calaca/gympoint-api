@@ -1,4 +1,3 @@
-import { Op } from 'sequelize';
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
 import Queue from '../../lib/Queue';
@@ -32,13 +31,13 @@ class AnswerController {
     if (!helpOrder) {
       return res
         .status(404)
-        .json({ errors: [{ msg: 'Help order not found' }] });
+        .json({ errors: [{ msg: 'Pedido de auxílio não encontrado.' }] });
     }
 
     if (helpOrder.answer_at !== null) {
       return res
         .status(400)
-        .json({ errors: [{ msg: 'This question has already been answered' }] });
+        .json({ errors: [{ msg: 'Essa pergunta já foi respondida.' }] });
     }
 
     const updatedHelpOrder = await helpOrder.update({

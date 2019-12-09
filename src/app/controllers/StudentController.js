@@ -43,9 +43,9 @@ class StudentController {
     });
 
     if (studentExists) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Student already exists' }] });
+      return res.status(400).json({
+        errors: [{ msg: 'Um aluno já possui esse email cadastrado.' }],
+      });
     }
 
     const student = await Student.create(req.body);
@@ -67,9 +67,9 @@ class StudentController {
       });
 
       if (studentExists) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Student already exists' }] });
+        return res.status(400).json({
+          errors: [{ msg: 'Um aluno já possui esse email cadastrado.' }],
+        });
       }
     }
 
@@ -82,7 +82,9 @@ class StudentController {
     const student = await Student.findByPk(req.params.id);
 
     if (!student) {
-      return res.status(404).json({ errors: [{ msg: 'Student not found' }] });
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Aluno não encntrado.' }] });
     }
 
     await student.destroy();
