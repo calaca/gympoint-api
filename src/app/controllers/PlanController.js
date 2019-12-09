@@ -50,7 +50,9 @@ class PlanController {
 
     await plan.destroy();
 
-    return res.json({ message: 'Plan deleted successfully' });
+    const plans = await Plan.findAll();
+
+    return res.json(plans);
   }
 }
 
