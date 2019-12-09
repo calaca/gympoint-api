@@ -15,6 +15,7 @@ class EnrollmentController {
         'start_date',
         'end_date',
         'price',
+        'active',
       ],
       order: ['start_date'],
       include: [
