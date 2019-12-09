@@ -25,9 +25,7 @@ class SessionController {
 
     // validate password
     if (!(await user.checkPassword(password))) {
-      return res
-        .status(401)
-        .json({ errors: [{ msg: 'As senhas não são iguais.' }] });
+      return res.status(401).json({ errors: [{ msg: 'Senha incorreta.' }] });
     }
 
     const { id, name } = user;
