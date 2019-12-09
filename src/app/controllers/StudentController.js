@@ -1,9 +1,21 @@
 import { validationResult } from 'express-validator';
+import { Op, fn, where, col } from 'sequelize';
 import Student from '../models/Student';
 
 class StudentController {
   async index(req, res) {
-    const students = await Student.findAll();
+    const { q } = req.query;
+    let students;
+
+    if (q) {
+      students = await Student.findAll({
+        where: where(fn('lower', col('name')), {
+          [Op.like]: fn('lower', `%${q}%`),
+        }),
+      });
+    } else {
+      students = await Student.findAll();
+    }
 
     const studentsPublicData = students.map(student => {
       return {
