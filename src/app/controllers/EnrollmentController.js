@@ -145,7 +145,30 @@ class EnrollmentController {
 
     await enrollment.destroy();
 
-    const enrollments = await Enrollment.findAll();
+    const enrollments = await Enrollment.findAll({
+      attributes: [
+        'id',
+        'student_id',
+        'plan_id',
+        'start_date',
+        'end_date',
+        'price',
+        'active',
+      ],
+      order: ['start_date'],
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email', 'age', 'weight', 'height'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title', 'duration', 'price'],
+        },
+      ],
+    });
 
     return res.json(enrollments);
   }
