@@ -9,6 +9,13 @@ class AnswerController {
       where: {
         answer_at: null,
       },
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email'],
+        },
+      ],
     });
 
     return res.json(helpOrders);
