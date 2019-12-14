@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
 import Queue from '../../lib/Queue';
@@ -8,6 +9,9 @@ class AnswerController {
     const helpOrders = await HelpOrder.findAll({
       where: {
         answer_at: null,
+        student_id: {
+          [Op.ne]: null,
+        },
       },
       include: [
         {
