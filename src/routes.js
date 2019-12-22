@@ -25,6 +25,8 @@ routes.post(
   SessionController.store
 );
 
+routes.get('/student/:id', StudentController.show);
+
 routes.get('/students/:id/checkins', CheckinController.index);
 routes.post('/students/:id/checkins', CheckinController.store);
 

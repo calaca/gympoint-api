@@ -31,6 +31,20 @@ class StudentController {
     return res.json(studentsPublicData);
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+
+    const student = await Student.findByPk(id);
+
+    if (!student) {
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Aluno não encontrado.' }] });
+    }
+
+    return res.json(student);
+  }
+
   async store(req, res) {
     const errors = validationResult(req);
 
