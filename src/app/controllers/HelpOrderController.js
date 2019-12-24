@@ -3,6 +3,7 @@ import Student from '../models/Student';
 
 class HelpOrderController {
   async index(req, res) {
+    const { page = 1 } = req.query;
     const { id } = req.params;
 
     const student = await Student.findByPk(id);
@@ -13,7 +14,13 @@ class HelpOrderController {
         .json({ errors: [{ msg: 'Aluno não encontrado.' }] });
     }
 
-    const helpOrders = await HelpOrder.findAll({ where: { student_id: id } });
+    const helpOrders = await HelpOrder.findAll({
+      where: {
+        student_id: id,
+      },
+      limit: 10,
+      offset: (page - 1) * 10,
+    });
 
     return res.json(helpOrders);
   }
