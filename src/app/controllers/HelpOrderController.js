@@ -30,6 +30,12 @@ class HelpOrderController {
         .json({ errors: [{ msg: 'Aluno não encontrado.' }] });
     }
 
+    if (!question) {
+      return res
+        .status(404)
+        .json({ errors: [{ msg: 'Pergunta é obrigatória.' }] });
+    }
+
     const helpOrder = await HelpOrder.create({
       question,
       student_id: id,
