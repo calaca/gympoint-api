@@ -7,7 +7,8 @@
     "dev": "nodemon src/server",
     "dev:debug": "nodemon --inspect src/server",
     "queue": "nodemon src/queue",
-    "queue:debug": "nodemon --inspect src/queue"
+    "queue:debug": "nodemon --inspect src/queue",
+    "start": "node src/server"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
